@@ -1,17 +1,18 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "clarity-tech/laravel-otp-generator",
+    "description": "a lightweight implementation of generating OTP and validating backed by Cache Storage for Laravel",
     "keywords": [
-        ":vendor_name",
+        "clarity-tech",
         "laravel",
-        ":package_slug"
+        "laravel-otp-generator",
+        "msonowal"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/clarity-tech/laravel-otp-generator",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Manash Jyoti Sonowal",
+            "email": "manash149@gmail.com",
             "role": "Developer"
         }
     ],
@@ -30,18 +31,16 @@
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^9.5",
-        "spatie/laravel-ray": "^1.26"
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "ClarityTech\\LaravelOtpGenerator\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "ClarityTech\\LaravelOtpGenerator\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -56,10 +55,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "ClarityTech\\LaravelOtpGenerator\\LaravelOtpGeneratorServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "LaravelOtpGenerator": "ClarityTech\\LaravelOtpGenerator\\Facades\\LaravelOtpGenerator"
             }
         }
     },
