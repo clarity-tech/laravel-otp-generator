@@ -4,12 +4,11 @@ namespace ClarityTech\LaravelOtpGenerator;
 
 use ClarityTech\LaravelOtpGenerator\Exceptions\OTPExpiredException;
 use ClarityTech\LaravelOtpGenerator\Exceptions\OTPInvalidException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class LaravelOtpGenerator
 {
-    protected string $_key;
-
     protected int $_expiry;
 
     protected bool $_debug;
@@ -17,21 +16,50 @@ class LaravelOtpGenerator
     /**
      * Create AugmentedOTP object by the identifer/ key
      */
-    public function __construct(string $key)
+    public function __construct(protected ?string $_key = null)
     {
-        $this->setKey($key);
-        $this->debug = (bool) config('otp-generator.debug', false);
+        $this->_debug = (bool) config('otp-generator.debug', false);
         $this->_expiry = (int) config('otp-generator.expiry', 15 * 60);
+    }
+
+    public static function create(string $key): static
+    {
+        return new static($key);
+    }
+
+    /**
+     * Create a instance with key from the ip and a mobile no to simple usage
+     * TODO: we can create a interface for implementation to the end user
+     */
+    public static function fromRequest(Request $request, string $mobileNo): static
+    {
+        $key = 'augmentedOTP-'.sha1(implode('|', [$request->ip(), $mobileNo]));
+
+        $instance = static::create($key);
+
+        return $instance;
+    }
+
+    public function generateWithKey(string $key)
+    {
+        $otp = $this->withKey($key)
+            ->generate();
+
+        return $otp;
     }
 
     public function getKey()
     {
+        if (is_null($this->_key)) {
+            throw new \InvalidArgumentException('Please set a key to identify the OTP for verifying later.');
+        }
+
         return $this->_key;
     }
 
-    public function setKey(string $suffix)
+    public function withKey(string $suffix)
     {
-        $this->_key = snake_case(class_basename(self::class).$suffix);
+        $this->_key = 'augmentedOTP-'.$suffix;
 
         return $this;
     }
