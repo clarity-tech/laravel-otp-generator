@@ -2,7 +2,6 @@
 
 namespace ClarityTech\LaravelOtpGenerator;
 
-use ClarityTech\LaravelOtpGenerator\Commands\LaravelOtpGeneratorCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
