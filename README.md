@@ -49,8 +49,9 @@ use ClarityTech\LaravelOtpGenerator\Facades\AugmentedOTP;
 $otp     =  AugmentedOTP::generateWithKey(9706353416);
 
 
-
 $isValid =  AugmentedOTP::withKey(9706353416)->verify(123456);
+
+$isValid =  AugmentedOTP::withKey(9706353416)->validate(123456);
 ```
 
 you can determine whether provide code is valid or not
