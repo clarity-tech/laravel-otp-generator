@@ -52,11 +52,14 @@ $isValid =  AugmentedOTP::withKey(9706353416)->validate(123456);
 
 $isValid =  AugmentedOTP::withKey(9706353416)->verify(123456);//does not trigger exception
 ```
-The validate methods throws two exception based on that you can handle your use case and modify the output as needed
+The validate methods throws two exceptions based on which you can handle in your use case and modify the response to give for the user output as needed
 
+```php 
+use ClarityTech\LaravelOtpGenerator\Exceptions\OTPExpiredException;
+use ClarityTech\LaravelOtpGenerator\Exceptions\OTPInvalidException;
+```
 
-
-Or when you have request context available you can pass that too for more secure hash generation
+And when you have request context available you can pass that too for more secure hash key generation internally which locks the OTP to be valid for that session / IP address only
 
 ```php
 $instance = AugmentedOTP::fromRequest(Request $request, string $mobileNo);
